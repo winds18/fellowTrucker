@@ -1,0 +1,56 @@
+header {
+    color: #fff;
+    position: relative;
+    text-align: center;
+    .top{
+        background-color: #2f4159;
+        font-size: 3em;
+        padding: 0.4em 0;
+        font-family: "ExpletusSans" !important;
+    }
+    i{
+        position: absolute;
+        left: 0.4em;
+        top: 0.5em;
+    }
+    .banner{
+        background: url(../images/banner.jpg) 0 0 no-repeat;
+        background-size: 100% auto;
+        h2{
+            padding: 1em 0;
+            font-family: 'Gotham-Light' !important;
+        }
+        h2,p{
+            font-size: 1.6em;
+        }
+        p{
+            font-family: 'GothamExLight' !important;
+            font-weight: bold;
+            line-height: 1em;
+            &:last-child{
+                padding-bottom: 1em;
+            }
+            a{
+                text-decoration: underline;
+            }
+        }
+        nav {
+            font-size: 2em;
+            font-weight: bold;
+            padding-bottom: 1em;
+            a{
+                font-family: 'GothamRounded-Bold' !important;
+                &::after{
+                    content: '/';
+                    padding: 0 0.5em;
+                }
+                &:last-child{
+                    &::after{
+                        content: '';
+                        padding: 0;
+                    }
+                }
+            }
+        }
+    }
+}
