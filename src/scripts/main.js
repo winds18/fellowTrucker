@@ -3,6 +3,14 @@ var home = {
         var header = d.header;
         var html = '<header>';
         html += '<div class="top">' + d.title + '</div><i class="iconfont icon-alignjustify"></i>';
+        html += '<ul class="subnav"><li class="arrow-up"></li>';
+        for(var i in header.subnav){
+            html += '<li><a href="' + header.subnav[i].href + '">' + header.subnav[i].name + '</a></li>';
+            if(i == 0){
+                html += '<li class="line"><div></div></li>';
+            }
+        }
+        html += '</ul>';
         html += '<div class="banner">';
         html += '<h2>' + header.title + '</h2>';
         html += '<nav>';
@@ -16,20 +24,57 @@ var home = {
     },
     table:function(d){
         var html = '<ul class="list">';
-        for(var j in d.meta){
-            if(d.data[0][12].Comments){
-                var cl = 'add';
+        var item = function(p,data){
+            var obj = {};
+            obj.html = '<span class="txt">' + data.item[p] + '</span>';
+            if(data.Comments){
+                obj.pro = 'add';
+                obj.comment = data.Comments;
             }else{
-                var cl = '';
+                obj.pro = '';
             }
-            html += '<li class="item-' + j + ' ' + cl + '"><span class="meta">' + d.meta[j] + '</span>';
-            html += '<span class="txt">' +d.data[0][j] + '</span>';
+            return obj;
+        };
+        for(var i in d.meta){
+            var obj = item(i,d.data[0]);
+            html += '<li class="item-' + i + ' ' + obj.pro + '"><span class="meta">' + d.meta[i] + '</span>';
+            html += obj.html;
+            if(obj.pro && i == 1){
+                html += '<div class="comments">Comments:' + obj.comment + '</div>';
+            }
+            html += '</li>';
         }
         html += '</ul>';
         return html;
     },
+    subnav:function($){
+        $('i.icon-alignjustify').on('click',function(e){
+            (function(obj){
+                if(typeof(obj.attr('style')) === 'undefined'){
+                    obj.css('display','block');
+                }else{
+                    obj.removeAttr('style');
+                }
+            })($('.subnav'));
+        });
+    },
+    comments:function($){
+        $('.item-1').on('click',function(){
+            if($(this)[0].className.indexOf('add') > 0){
+                $(this).removeClass('add').addClass('sub');
+                $('.comments').css('display','block');
+                $(this).css('background-position','95% 20%');
+            }else if($(this)[0].className.indexOf('sub') > 0){
+                $(this).removeClass('sub').addClass('add');
+                $('.comments').css('display','none');
+                $(this).removeAttr('style');
+            }
+        });
+    },
     init:function(d){
         document.body.innerHTML = this.header(d) + this.table(d.table);
+        this.subnav(jQuery);
+        this.comments(jQuery);
     }
 };
 
