@@ -71,10 +71,39 @@ var home = {
             }
         });
     },
+    dropdown:function($){
+        var html = '<dl>';
+        var that = this;
+        data.table.data.map(function(item,index){
+            html += '<dt data-id="' + index + '">' + item.item[0] + '</dt>';
+        });
+        html += '</dl>';
+        $('.item-0').append(html).on('click',function(){
+            if($(this).children('dl').attr('style')){
+                $(this).children('dl').removeAttr('style');
+            }else{
+                $(this).children('dl').css('display','block');
+            }
+        }).find('dt').on('click',function(){
+            that.update($,$(this).attr('data-id'),data.table.data);
+        });
+    },
+    update:function($,index,data){
+        if(data[index].Comments){
+            $('.comments').html("Comments:" + data[index].Comments);
+            $('.item-1').addClass('add');
+        }else{
+            $('.item-1').removeClass('add');
+        }
+        [].slice.call($('span.txt')).map(function(item,j){
+            item.innerHTML = data[index].item[j];
+        });;
+    },
     init:function(d){
         document.body.innerHTML = this.header(d) + this.table(d.table);
         this.subnav(jQuery);
         this.comments(jQuery);
+        this.dropdown(jQuery);
     }
 };
 

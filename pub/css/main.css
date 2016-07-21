@@ -222,11 +222,27 @@ ul.list {
   color: #fff;
   text-align: center; }
   ul.list li {
-    overflow: hidden;
-    border-bottom: 2px solid #fff; }
+    height: 3em;
+    border-bottom: 0.2em solid #fff; }
     ul.list li.item-0 {
       background: url(../images/triangle.png) 95% center no-repeat;
-      background-size: 1.25em 0.7em; }
+      background-size: 1.25em 0.7em;
+      position: relative; }
+      ul.list li.item-0 dl {
+        display: none;
+        width: 68%;
+        position: absolute;
+        background-color: #e5e5e5;
+        color: #000;
+        right: 0;
+        top: 3em;
+        height: 25.6em;
+        overflow: scroll;
+        line-height: 3.2em;
+        z-index: 999; }
+    ul.list li.item-1 {
+      height: auto;
+      overflow: hidden; }
     ul.list li.item-1.add {
       background: #f5f5f5 url(../images/add.png) 95% center no-repeat;
       background-size: 1.25em; }
